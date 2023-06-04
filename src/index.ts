@@ -18,16 +18,19 @@ app.get("/locations", async (req, res) => {
   res.json(locations);
 });
 
-app.post("/todos", async (req, res) => {
-  const todo = await prisma.todo.create({
+app.post("/locations", async (req, res) => {
+  const location = await prisma.location.create({
     data: {
-      completed: false,
+      name: req.body.name,
+      address: req.body.address,
+      lat: req.body.lat,
+      lng: req.body.lng,
+      tags: req.body.tags,
       createdAt: new Date(),
-      text: req.body.text ?? "Empty todo",
     },
   });
 
-  return res.json(todo);
+  return res.json(location);
 });
 
 app.get("/todos/:id", async (req, res) => {
