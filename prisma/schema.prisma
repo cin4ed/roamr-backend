@@ -10,9 +10,21 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Todo {
+model Location {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  text      String
-  completed Boolean
+  name      String
+  address   String
+  lat       Float
+  lng       Float
+  tags      String
+  photos    Photo[]
+}
+
+model Photo {
+  id         String   @id @default(uuid())
+  createdAt  DateTime @default(now())
+  url        String
+  locationId String
+  location   Location @relation(fields: [locationId], references: [id])
 }
